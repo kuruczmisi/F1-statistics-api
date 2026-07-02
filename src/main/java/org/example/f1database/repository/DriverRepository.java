@@ -1,0 +1,8 @@
+package org.example.f1database.repository;
+
+
+import org.example.f1database.entity.Driver;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DriverRepository extends JpaRepository<Driver, Long> {
+}
