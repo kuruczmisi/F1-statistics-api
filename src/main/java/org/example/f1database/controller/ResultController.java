@@ -1,6 +1,7 @@
 package org.example.f1database.controller;
 
-import org.example.f1database.entity.Result;
+import org.example.f1database.dto.ResultRequestDto;
+import org.example.f1database.dto.ResultResponseDto;
 import org.example.f1database.service.ResultService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,24 +18,24 @@ public class ResultController {
     }
 
     @GetMapping
-    public List<Result> getAllResults() {
+    public List<ResultResponseDto> getAllResults() {
         return resultService.getAllResults();
     }
 
     @GetMapping("/{id}")
-    public Result getResultById(@PathVariable Long id) {
+    public ResultResponseDto getResultById(@PathVariable Long id) {
         return resultService.getResultById(id);
     }
 
     @PostMapping
-    public Result createResult(@RequestBody Result result) {
-        return resultService.createResult(result);
+    public ResultResponseDto createResult(@RequestBody ResultRequestDto dto) {
+        return resultService.createResult(dto);
     }
 
     @PutMapping("/{id}")
-    public Result updateResult(@PathVariable Long id,
-                               @RequestBody Result result) {
-        return resultService.updateResult(id, result);
+    public ResultResponseDto updateResult(@PathVariable Long id,
+                                          @RequestBody ResultRequestDto dto) {
+        return resultService.updateResult(id, dto);
     }
 
     @DeleteMapping("/{id}")

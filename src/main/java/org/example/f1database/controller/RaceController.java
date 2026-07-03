@@ -1,6 +1,7 @@
 package org.example.f1database.controller;
 
-import org.example.f1database.entity.Race;
+import org.example.f1database.dto.RaceRequestDto;
+import org.example.f1database.dto.RaceResponseDto;
 import org.example.f1database.service.RaceService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,24 +18,24 @@ public class RaceController {
     }
 
     @GetMapping
-    public List<Race> getAllRaces() {
+    public List<RaceResponseDto> getAllRaces() {
         return raceService.getAllRaces();
     }
 
     @GetMapping("/{id}")
-    public Race getRaceById(@PathVariable Long id) {
+    public RaceResponseDto getRaceById(@PathVariable Long id) {
         return raceService.getRaceById(id);
     }
 
     @PostMapping
-    public Race createRace(@RequestBody Race race) {
-        return raceService.createRace(race);
+    public RaceResponseDto createRace(@RequestBody RaceRequestDto dto) {
+        return raceService.createRace(dto);
     }
 
     @PutMapping("/{id}")
-    public Race updateRace(@PathVariable Long id,
-                           @RequestBody Race race) {
-        return raceService.updateRace(id, race);
+    public RaceResponseDto updateRace(@PathVariable Long id,
+                                      @RequestBody RaceRequestDto dto) {
+        return raceService.updateRace(id, dto);
     }
 
     @DeleteMapping("/{id}")
