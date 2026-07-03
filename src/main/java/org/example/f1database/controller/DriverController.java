@@ -1,6 +1,7 @@
 package org.example.f1database.controller;
 
-import org.example.f1database.entity.Driver;
+import org.example.f1database.dto.DriverRequestDto;
+import org.example.f1database.dto.DriverResponseDto;
 import org.example.f1database.service.DriverService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,24 +18,24 @@ public class DriverController {
     }
 
     @GetMapping
-    public List<Driver> getAllDrivers() {
+    public List<DriverResponseDto> getAllDrivers() {
         return driverService.getAllDrivers();
     }
 
     @GetMapping("/{id}")
-    public Driver getDriverById(@PathVariable Long id) {
+    public DriverResponseDto getDriverById(@PathVariable Long id) {
         return driverService.getDriverById(id);
     }
 
     @PostMapping
-    public Driver createDriver(@RequestBody Driver driver) {
-        return driverService.createDriver(driver);
+    public DriverResponseDto createDriver(@RequestBody DriverRequestDto dto) {
+        return driverService.createDriver(dto);
     }
 
     @PutMapping("/{id}")
-    public Driver updateDriver(@PathVariable Long id,
-                               @RequestBody Driver driver) {
-        return driverService.updateDriver(id, driver);
+    public DriverResponseDto updateDriver(@PathVariable Long id,
+                                          @RequestBody DriverRequestDto dto) {
+        return driverService.updateDriver(id, dto);
     }
 
     @DeleteMapping("/{id}")
