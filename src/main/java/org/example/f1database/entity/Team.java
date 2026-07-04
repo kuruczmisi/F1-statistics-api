@@ -20,6 +20,8 @@ public class Team {
 
     private String name;
     private String country;
+    private String teamPrincipal;
+    private int foundedYear;
 
     @OneToMany(mappedBy = "team")
     @JsonIgnore

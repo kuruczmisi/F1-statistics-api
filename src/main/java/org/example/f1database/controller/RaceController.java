@@ -1,6 +1,7 @@
 package org.example.f1database.controller;
 
 import jakarta.validation.Valid;
+import org.example.f1database.dto.MessageResponseDto;
 import org.example.f1database.dto.RaceRequestDto;
 import org.example.f1database.dto.RaceResponseDto;
 import org.example.f1database.service.RaceService;
@@ -45,7 +46,10 @@ public class RaceController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRace(@PathVariable Long id) {
+    public MessageResponseDto deleteRace(@PathVariable Long id) {
+
         raceService.deleteRace(id);
+
+        return new MessageResponseDto("Race deleted successfully.");
     }
 }

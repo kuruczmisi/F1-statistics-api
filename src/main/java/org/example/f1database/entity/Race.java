@@ -27,4 +27,8 @@ public class Race {
     @OneToMany(mappedBy = "race")
     @JsonIgnore
     private List<Result> results;
+
+    @ManyToMany(mappedBy = "races")
+    @JsonIgnore
+    private List<Driver> drivers;
 }

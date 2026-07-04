@@ -28,4 +28,13 @@ public class Driver {
     @OneToMany(mappedBy = "driver")
     @JsonIgnore
     private List<Result> results;
+
+    @ManyToMany
+    @JoinTable(
+            name = "driver_races",
+            joinColumns = @JoinColumn(name = "driver_id"),
+            inverseJoinColumns = @JoinColumn(name = "race_id")
+    )
+    @JsonIgnore
+    private List<Race> races;
 }

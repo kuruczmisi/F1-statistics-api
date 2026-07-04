@@ -1,6 +1,7 @@
 package org.example.f1database.controller;
 
 import jakarta.validation.Valid;
+import org.example.f1database.dto.MessageResponseDto;
 import org.example.f1database.dto.ResultRequestDto;
 import org.example.f1database.dto.ResultResponseDto;
 import org.example.f1database.service.ResultService;
@@ -40,7 +41,10 @@ public class ResultController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteResult(@PathVariable Long id) {
+    public MessageResponseDto deleteResult(@PathVariable Long id) {
+
         resultService.deleteResult(id);
+
+        return new MessageResponseDto("Result deleted successfully.");
     }
 }

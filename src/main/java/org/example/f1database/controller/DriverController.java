@@ -3,6 +3,7 @@ package org.example.f1database.controller;
 import jakarta.validation.Valid;
 import org.example.f1database.dto.DriverRequestDto;
 import org.example.f1database.dto.DriverResponseDto;
+import org.example.f1database.dto.MessageResponseDto;
 import org.example.f1database.service.DriverService;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +46,10 @@ public class DriverController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDriver(@PathVariable Long id) {
+    public MessageResponseDto deleteDriver(@PathVariable Long id) {
+
         driverService.deleteDriver(id);
+
+        return new MessageResponseDto("Driver deleted successfully.");
     }
 }

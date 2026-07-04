@@ -1,6 +1,7 @@
 package org.example.f1database.controller;
 
 import jakarta.validation.Valid;
+import org.example.f1database.dto.MessageResponseDto;
 import org.example.f1database.dto.TeamRequestDto;
 import org.example.f1database.dto.TeamResponseDto;
 import org.example.f1database.service.TeamService;
@@ -45,7 +46,10 @@ public class TeamController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTeam(@PathVariable Long id) {
+    public MessageResponseDto deleteTeam(@PathVariable Long id) {
+
         teamService.deleteTeam(id);
+
+        return new MessageResponseDto("Team deleted successfully.");
     }
 }
