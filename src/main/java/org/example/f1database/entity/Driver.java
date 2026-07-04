@@ -1,7 +1,10 @@
 package org.example.f1database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "drivers")
@@ -21,4 +24,8 @@ public class Driver {
 
     @ManyToOne
     private Team team;
+
+    @OneToMany(mappedBy = "driver")
+    @JsonIgnore
+    private List<Result> results;
 }

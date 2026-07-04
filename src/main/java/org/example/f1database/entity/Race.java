@@ -1,7 +1,10 @@
 package org.example.f1database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "races")
@@ -20,4 +23,8 @@ public class Race {
 
     @Column(name = "race_year")
     private int year;
+
+    @OneToMany(mappedBy = "race")
+    @JsonIgnore
+    private List<Result> results;
 }
