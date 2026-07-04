@@ -1,5 +1,6 @@
 package org.example.f1database.controller;
 
+import jakarta.validation.Valid;
 import org.example.f1database.dto.RaceRequestDto;
 import org.example.f1database.dto.RaceResponseDto;
 import org.example.f1database.service.RaceService;
@@ -28,13 +29,13 @@ public class RaceController {
     }
 
     @PostMapping
-    public RaceResponseDto createRace(@RequestBody RaceRequestDto dto) {
+    public RaceResponseDto createRace(@Valid @RequestBody RaceRequestDto dto) {
         return raceService.createRace(dto);
     }
 
     @PutMapping("/{id}")
     public RaceResponseDto updateRace(@PathVariable Long id,
-                                      @RequestBody RaceRequestDto dto) {
+                                      @Valid @RequestBody RaceRequestDto dto) {
         return raceService.updateRace(id, dto);
     }
 

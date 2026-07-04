@@ -1,5 +1,6 @@
 package org.example.f1database.controller;
 
+import jakarta.validation.Valid;
 import org.example.f1database.dto.TeamRequestDto;
 import org.example.f1database.dto.TeamResponseDto;
 import org.example.f1database.service.TeamService;
@@ -28,13 +29,13 @@ public class TeamController {
     }
 
     @PostMapping
-    public TeamResponseDto createTeam(@RequestBody TeamRequestDto dto) {
+    public TeamResponseDto createTeam(@Valid @RequestBody TeamRequestDto dto) {
         return teamService.createTeam(dto);
     }
 
     @PutMapping("/{id}")
     public TeamResponseDto updateTeam(@PathVariable Long id,
-                                      @RequestBody TeamRequestDto dto) {
+                                      @Valid @RequestBody TeamRequestDto dto) {
         return teamService.updateTeam(id, dto);
     }
 

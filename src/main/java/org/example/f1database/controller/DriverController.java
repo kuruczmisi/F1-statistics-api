@@ -1,5 +1,6 @@
 package org.example.f1database.controller;
 
+import jakarta.validation.Valid;
 import org.example.f1database.dto.DriverRequestDto;
 import org.example.f1database.dto.DriverResponseDto;
 import org.example.f1database.service.DriverService;
@@ -28,13 +29,13 @@ public class DriverController {
     }
 
     @PostMapping
-    public DriverResponseDto createDriver(@RequestBody DriverRequestDto dto) {
+    public DriverResponseDto createDriver(@Valid @RequestBody DriverRequestDto dto) {
         return driverService.createDriver(dto);
     }
 
     @PutMapping("/{id}")
     public DriverResponseDto updateDriver(@PathVariable Long id,
-                                          @RequestBody DriverRequestDto dto) {
+                                          @Valid @RequestBody DriverRequestDto dto) {
         return driverService.updateDriver(id, dto);
     }
 
