@@ -55,6 +55,8 @@ public class TeamService {
 
         existingTeam.setName(dto.getName());
         existingTeam.setCountry(dto.getCountry());
+        existingTeam.setTeamPrincipal(dto.getTeamPrincipal());
+        existingTeam.setFoundedYear(dto.getFoundedYear());
 
         Team updatedTeam = teamRepository.save(existingTeam);
 
@@ -67,4 +69,5 @@ public class TeamService {
 
         teamRepository.delete(existingTeam);
     }
+
 }

@@ -13,6 +13,8 @@ public class TeamMapper {
 
         team.setName(dto.getName());
         team.setCountry(dto.getCountry());
+        team.setTeamPrincipal(dto.getTeamPrincipal());
+        team.setFoundedYear(dto.getFoundedYear());
 
         return team;
     }
@@ -21,7 +23,9 @@ public class TeamMapper {
         return new TeamResponseDto(
                 team.getId(),
                 team.getName(),
-                team.getCountry()
+                team.getCountry(),
+                team.getTeamPrincipal(),
+                team.getFoundedYear()
         );
     }
 }
