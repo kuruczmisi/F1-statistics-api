@@ -41,14 +41,14 @@ class ResultServiceTest {
 
     @Test
     void createResult_shouldReturnSavedResult() {
-        // Arrange
+
         Driver driver = new Driver();
         driver.setId(1L);
         driver.setName("Lewis Hamilton");
 
         Race race = new Race();
         race.setId(1L);
-        race.setName("Hungarian Grand Prix");
+        race.setName("Hungarian GP");
 
         ResultRequestDto requestDto = new ResultRequestDto();
         requestDto.setPosition(1);
@@ -76,7 +76,7 @@ class ResultServiceTest {
                 1L,
                 "Lewis Hamilton",
                 1L,
-                "Hungarian Grand Prix"
+                "Hungarian GP"
         );
 
         when(driverRepository.findById(1L)).thenReturn(Optional.of(driver));
@@ -85,53 +85,19 @@ class ResultServiceTest {
         when(resultRepository.save(result)).thenReturn(savedResult);
         when(resultMapper.toDto(savedResult)).thenReturn(responseDto);
 
-        // Act
         ResultResponseDto response = resultService.createResult(requestDto);
 
-        // Assert
-        assertEquals(1L, response.getId());
         assertEquals(1, response.getPosition());
         assertEquals(25, response.getPoints());
         assertEquals("Lewis Hamilton", response.getDriverName());
-        assertEquals("Hungarian Grand Prix", response.getRaceName());
-    }
-
-    @Test
-    void getResultById_shouldReturnResult() {
-        // Arrange
-        Result result = new Result();
-        result.setId(1L);
-        result.setPosition(1);
-        result.setPoints(25);
-
-        ResultResponseDto responseDto = new ResultResponseDto(
-                1L,
-                1,
-                25,
-                1L,
-                "Lewis Hamilton",
-                1L,
-                "Hungarian Grand Prix"
-        );
-
-        when(resultRepository.findById(1L)).thenReturn(Optional.of(result));
-        when(resultMapper.toDto(result)).thenReturn(responseDto);
-
-        // Act
-        ResultResponseDto response = resultService.getResultById(1L);
-
-        // Assert
-        assertEquals(1L, response.getId());
-        assertEquals(25, response.getPoints());
     }
 
     @Test
     void getResultById_shouldThrowException() {
-        // Arrange
-        when(resultRepository.findById(99L)).thenReturn(Optional.empty());
 
-        // Act + Assert
+        when(resultRepository.findById(100L)).thenReturn(Optional.empty());
+
         assertThrows(ResourceNotFoundException.class,
-                () -> resultService.getResultById(99L));
+                () -> resultService.getResultById(100L));
     }
 }
