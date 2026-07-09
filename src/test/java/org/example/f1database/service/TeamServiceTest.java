@@ -31,62 +31,77 @@ class TeamServiceTest {
 
     @Test
     void createTeam_shouldReturnSavedTeam() {
-        // Arrange
         TeamRequestDto requestDto = new TeamRequestDto();
         requestDto.setName("Ferrari");
         requestDto.setCountry("Italy");
+        requestDto.setTeamPrincipal("Fred Vasseur");
+        requestDto.setFoundedYear(1929);
 
         Team team = new Team();
         team.setName("Ferrari");
         team.setCountry("Italy");
+        team.setTeamPrincipal("Fred Vasseur");
+        team.setFoundedYear(1929);
 
         Team savedTeam = new Team();
         savedTeam.setId(1L);
         savedTeam.setName("Ferrari");
         savedTeam.setCountry("Italy");
+        savedTeam.setTeamPrincipal("Fred Vasseur");
+        savedTeam.setFoundedYear(1929);
 
-        TeamResponseDto responseDto = new TeamResponseDto(1L, "Ferrari", "Italy");
+        TeamResponseDto responseDto = new TeamResponseDto(
+                1L,
+                "Ferrari",
+                "Italy",
+                "Fred Vasseur",
+                1929
+        );
 
         when(teamMapper.toEntity(requestDto)).thenReturn(team);
         when(teamRepository.save(team)).thenReturn(savedTeam);
         when(teamMapper.toDto(savedTeam)).thenReturn(responseDto);
 
-        // Act
         TeamResponseDto result = teamService.createTeam(requestDto);
 
-        // Assert
         assertEquals(1L, result.getId());
         assertEquals("Ferrari", result.getName());
         assertEquals("Italy", result.getCountry());
+        assertEquals("Fred Vasseur", result.getTeamPrincipal());
+        assertEquals(1929, result.getFoundedYear());
     }
 
     @Test
     void getTeamById_shouldReturnTeam() {
-        // Arrange
         Team team = new Team();
         team.setId(1L);
         team.setName("Ferrari");
         team.setCountry("Italy");
+        team.setTeamPrincipal("Fred Vasseur");
+        team.setFoundedYear(1929);
 
-        TeamResponseDto responseDto = new TeamResponseDto(1L, "Ferrari", "Italy");
+        TeamResponseDto responseDto = new TeamResponseDto(
+                1L,
+                "Ferrari",
+                "Italy",
+                "Fred Vasseur",
+                1929
+        );
 
         when(teamRepository.findById(1L)).thenReturn(Optional.of(team));
         when(teamMapper.toDto(team)).thenReturn(responseDto);
 
-        // Act
         TeamResponseDto result = teamService.getTeamById(1L);
 
-        // Assert
         assertEquals(1L, result.getId());
         assertEquals("Ferrari", result.getName());
+        assertEquals("Fred Vasseur", result.getTeamPrincipal());
     }
 
     @Test
     void getTeamById_shouldThrowException() {
-        // Arrange
         when(teamRepository.findById(99L)).thenReturn(Optional.empty());
 
-        // Act + Assert
         assertThrows(ResourceNotFoundException.class,
                 () -> teamService.getTeamById(99L));
     }
