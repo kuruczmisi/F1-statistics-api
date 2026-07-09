@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,9 +27,14 @@ public class Race {
 
     @OneToMany(mappedBy = "race")
     @JsonIgnore
-    private List<Result> results;
+    private List<Result> results = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "races")
+    @ManyToMany
+    @JoinTable(
+            name = "driver_races",
+            joinColumns = @JoinColumn(name = "race_id"),
+            inverseJoinColumns = @JoinColumn(name = "driver_id")
+    )
     @JsonIgnore
-    private List<Driver> drivers;
+    private List<Driver> drivers = new ArrayList<>();
 }

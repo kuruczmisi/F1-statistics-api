@@ -2,22 +2,29 @@ package org.example.f1database.service;
 
 import org.example.f1database.dto.RaceRequestDto;
 import org.example.f1database.dto.RaceResponseDto;
+import org.example.f1database.entity.Driver;
 import org.example.f1database.entity.Race;
 import org.example.f1database.exception.ResourceNotFoundException;
 import org.example.f1database.mapper.RaceMapper;
+import org.example.f1database.repository.DriverRepository;
 import org.example.f1database.repository.RaceRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class RaceService {
 
     private final RaceRepository raceRepository;
+    private final DriverRepository driverRepository;
     private final RaceMapper raceMapper;
 
-    public RaceService(RaceRepository raceRepository, RaceMapper raceMapper) {
+    public RaceService(RaceRepository raceRepository,
+                       DriverRepository driverRepository,
+                       RaceMapper raceMapper) {
         this.raceRepository = raceRepository;
+        this.driverRepository = driverRepository;
         this.raceMapper = raceMapper;
     }
 
@@ -43,7 +50,9 @@ public class RaceService {
     }
 
     public RaceResponseDto createRace(RaceRequestDto dto) {
-        Race race = raceMapper.toEntity(dto);
+        List<Driver> drivers = getDriversFromIds(dto.getDriverIds());
+
+        Race race = raceMapper.toEntity(dto, drivers);
         Race savedRace = raceRepository.save(race);
 
         return raceMapper.toDto(savedRace);
@@ -53,9 +62,12 @@ public class RaceService {
         Race existingRace = raceRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Race not found with id: " + id));
 
+        List<Driver> drivers = getDriversFromIds(dto.getDriverIds());
+
         existingRace.setName(dto.getName());
         existingRace.setLocation(dto.getLocation());
         existingRace.setYear(dto.getYear());
+        existingRace.setDrivers(drivers);
 
         Race updatedRace = raceRepository.save(existingRace);
 
@@ -67,5 +79,16 @@ public class RaceService {
                 .orElseThrow(() -> new ResourceNotFoundException("Race not found with id: " + id));
 
         raceRepository.delete(existingRace);
+    }
+
+    private List<Driver> getDriversFromIds(List<Long> driverIds) {
+        if (driverIds == null || driverIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return driverIds.stream()
+                .map(driverId -> driverRepository.findById(driverId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Driver not found with id: " + driverId)))
+                .toList();
     }
 }

@@ -2,10 +2,10 @@ package org.example.f1database.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+
+import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class RaceResponseDto {
 
@@ -13,4 +13,6 @@ public class RaceResponseDto {
     private String name;
     private String location;
     private int year;
+    private List<Long> driverIds;
+    private List<String> driverNames;
 }

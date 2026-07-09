@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class RaceRequestDto {
@@ -19,4 +21,6 @@ public class RaceRequestDto {
     @Min(value = 1950, message = "Year must be at least 1950")
     @Max(value = 2100, message = "Year cannot be greater than 2100")
     private int year;
+
+    private List<Long> driverIds;
 }
