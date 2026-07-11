@@ -5,6 +5,7 @@ import org.example.f1database.entity.Race;
 import org.example.f1database.entity.Team;
 import org.example.f1database.repository.DriverRepository;
 import org.example.f1database.repository.RaceRepository;
+import org.example.f1database.repository.ResultRepository;
 import org.example.f1database.repository.TeamRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ class RaceControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
+    private ResultRepository resultRepository;
+
+    @Autowired
     private RaceRepository raceRepository;
 
     @Autowired
@@ -39,6 +43,7 @@ class RaceControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
+        resultRepository.deleteAll();
         raceRepository.deleteAll();
         driverRepository.deleteAll();
         teamRepository.deleteAll();
@@ -99,7 +104,9 @@ class RaceControllerIntegrationTest {
                 .andExpect(jsonPath("$.id").value(savedRace.getId()))
                 .andExpect(jsonPath("$.name").value("Monaco Grand Prix"))
                 .andExpect(jsonPath("$.location").value("Monaco"))
-                .andExpect(jsonPath("$.driverIds[0]").value(savedDriver.getId()));
+                .andExpect(jsonPath("$.year").value(2025))
+                .andExpect(jsonPath("$.driverIds[0]").value(savedDriver.getId()))
+                .andExpect(jsonPath("$.driverNames[0]").value("Lewis Hamilton"));
     }
 
     @Test

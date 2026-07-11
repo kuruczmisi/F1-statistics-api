@@ -3,6 +3,8 @@ package org.example.f1database.controller;
 import org.example.f1database.entity.Driver;
 import org.example.f1database.entity.Team;
 import org.example.f1database.repository.DriverRepository;
+import org.example.f1database.repository.RaceRepository;
+import org.example.f1database.repository.ResultRepository;
 import org.example.f1database.repository.TeamRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +27,12 @@ class DriverControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
+    private ResultRepository resultRepository;
+
+    @Autowired
+    private RaceRepository raceRepository;
+
+    @Autowired
     private DriverRepository driverRepository;
 
     @Autowired
@@ -34,6 +42,8 @@ class DriverControllerIntegrationTest {
 
     @BeforeEach
     void setUp() {
+        resultRepository.deleteAll();
+        raceRepository.deleteAll();
         driverRepository.deleteAll();
         teamRepository.deleteAll();
 
@@ -84,6 +94,9 @@ class DriverControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(savedDriver.getId()))
                 .andExpect(jsonPath("$.name").value("Charles Leclerc"))
+                .andExpect(jsonPath("$.nationality").value("Monégasque"))
+                .andExpect(jsonPath("$.number").value(16))
+                .andExpect(jsonPath("$.teamId").value(savedTeam.getId()))
                 .andExpect(jsonPath("$.teamName").value("Ferrari"));
     }
 
@@ -112,7 +125,9 @@ class DriverControllerIntegrationTest {
                         .content(requestBody))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(savedDriver.getId()))
+                .andExpect(jsonPath("$.name").value("Lewis Hamilton"))
                 .andExpect(jsonPath("$.number").value(1))
+                .andExpect(jsonPath("$.teamId").value(savedTeam.getId()))
                 .andExpect(jsonPath("$.teamName").value("Ferrari"));
     }
 
