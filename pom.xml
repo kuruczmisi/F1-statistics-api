@@ -9,10 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.example</groupId>
-    <artifactId>F1-database</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>F1-database</name>
-    <description>F1-database</description>
+    <artifactId>f1-statistics-api</artifactId>
+    <name>F1 Statistics API</name>
+    <description>REST API for managing Formula 1 statistics</description>
     <url/>
     <licenses>
         <license/>
