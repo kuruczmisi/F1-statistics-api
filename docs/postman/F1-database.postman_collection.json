@@ -349,11 +349,8 @@
     },
     {
       "name": "Delete Team",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
-        "method": "HEAD",
+        "method": "DELETE",
         "header": [],
         "body": {
           "mode": "raw",
